@@ -84,36 +84,34 @@ class _SeatMapState extends State<SeatMap> {
 
             ),
             elevation: 1,
-            child:  Container(
-              child: Column(
-                children: [
-                  GridView.count(
-                    physics: ScrollPhysics(),
-                    crossAxisCount: 5,
-                    /*crossAxisSpacing: 5.0,
-                    mainAxisSpacing: 5.0,*/
-                    //childAspectRatio: 5/4,
-                    shrinkWrap: true,
-                    children: List.generate(5, (index)
-                    {
+            child:  Column(
+              children: [
+                GridView.count(
+                  physics: ScrollPhysics(),
+                  crossAxisCount: 5,
+                  /*crossAxisSpacing: 5.0,
+                  mainAxisSpacing: 5.0,*/
+                  //childAspectRatio: 5/4,
+                  shrinkWrap: true,
+                  children: List.generate(5, (index)
+                  {
 
-                      //   final datas = controller.articleModelByCategory.value.data![index];
+                    //   final datas = controller.articleModelByCategory.value.data![index];
 
-                      return GestureDetector(
-                        onTap: (){
-                          //Get.to(()=>CscDetails(datas));
-                        },
-                        child: Column(
-                          children:
-                          [
-                            Center(child: Text("Mornng")),
-                          ],
-                        ),
-                      );
-                    },),
-                  ),
-                ],
-              ),
+                    return GestureDetector(
+                      onTap: (){
+                        //Get.to(()=>CscDetails(datas));
+                      },
+                      child: Column(
+                        children:
+                        [
+                          Center(child: Text("Mornng")),
+                        ],
+                      ),
+                    );
+                  },),
+                ),
+              ],
             ),
 
           )

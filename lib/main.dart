@@ -6,6 +6,8 @@ import 'package:librarymanagement/Dashboard/dashboard.dart';
 import 'package:librarymanagement/SplashUi/SplashPage.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import 'AppConstant/AppConstant.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -43,9 +45,10 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-           // home:SplashPage(),
-            home:dashboard(),
-
+           home:
+            GetStorage().read(AppConstant.userName)!=null?
+            GetStorage().read(AppConstant.userName).toString().isNotEmpty?dashboard():
+            const SplashPage():const SplashPage(),
             debugShowCheckedModeBanner: false,
           ),
         );

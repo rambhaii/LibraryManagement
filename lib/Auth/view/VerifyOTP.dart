@@ -10,8 +10,11 @@ import 'package:otp_text_field/style.dart';
 
 class OtypVerifyPage extends StatelessWidget
 {
-  OtypVerifyPage({Key? key}) : super(key: key);
-  LoginController _controller=Get.find();
+  final String id;
+  final String otp;
+  OtypVerifyPage({Key? key, required this.id, required this.otp}) : super(key: key);
+
+   LoginController _controller=Get.find();
    String etotp="";
   @override
   Widget build(BuildContext context)
@@ -51,7 +54,7 @@ class OtypVerifyPage extends StatelessWidget
                        fieldStyle: FieldStyle.underline,
                        onCompleted: (pin) {
                            etotp=pin;
-                      //   _controller.verifyNetworkApi(id, pin);
+                         _controller.verifyNetworkApi(id, pin);
                          },
 
                      ),
@@ -90,7 +93,7 @@ class OtypVerifyPage extends StatelessWidget
                {
 
                  Get.to(RegisterPage());
-                // _controller.verifyNetworkApi(id, etotp);
+                 _controller.verifyNetworkApi(id, etotp);
                },title: "Verify Code",)
              ],
            ),

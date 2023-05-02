@@ -12,9 +12,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:librarymanagement/ConstantVariable/textStryle.dart';
+import 'package:librarymanagement/Dashboard/Controller/DashboardController.dart';
 import 'package:librarymanagement/Dashboard/Screen/AddMember.dart';
 import 'package:librarymanagement/Dashboard/Screen/NavDrawer%20.dart';
 import 'package:librarymanagement/Dashboard/Screen/SeatMap.dart';
+
+import '../AppConstant/APIConstant.dart';
 
 class dashboard extends StatefulWidget
 {
@@ -25,12 +28,14 @@ class dashboard extends StatefulWidget
 
 class _dashboardState extends State<dashboard>
 {
+  DashBoardController controller=Get.put(DashBoardController());
   String url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fhelpx.adobe."
       "com%2Fphotoshop%2Fusing%2Fconvert-color-image-black-white.html&psig="
       "AOvVaw3p_sA4dyW6T8DpjL6blD6O&ust=1681743566177000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLj7r5LVrv4CFQAAAAAdAAAAABAE";
   @override
   Widget build(BuildContext context)
   {
+    controller.getBannerNetworkApi();
     SystemChrome.setSystemUIOverlayStyle
       (
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -78,6 +83,7 @@ class _dashboardState extends State<dashboard>
                         "assets/images/whatsapp.png",
                         height: 27,
                         width: 27,
+                        color: Colors.white,
 
                       ),
                     ),
@@ -115,6 +121,10 @@ class _dashboardState extends State<dashboard>
           60.0,
         ),
       ),
+
+
+
+
       body:  Container(
         margin: EdgeInsets.only(left: 10, right: 10),
         child: Column(
@@ -124,57 +134,64 @@ class _dashboardState extends State<dashboard>
             SizedBox(
               height: 8,
             ),
+
             Container(
-              child:
-                     CarouselSlider(
-                  options: CarouselOptions(
-                    height: 130.0,
-                    viewportFraction: 1,
-                    aspectRatio: 16/9,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.3,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                   items: [1,2,3,4,5].map((i)
-                  {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 130.0,
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left: 10.0, right: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.white,
-                              image:
-                              DecorationImage(
-                                //  image: NetworkImage(url),
-                                  image: AssetImage(
-                                    "assets/images/banner.jpg",
-                                  ),
-                                  fit: BoxFit.fill)
+              child: Obx(() => controller.bannerData.value.data!=null? CarouselSlider(
+                options: CarouselOptions(
+                  height: 130.0,
+                  viewportFraction: 1,
+                  aspectRatio: 16/9,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                ),
+                items: controller.bannerData.value.data!.map((i)
+                {
+                  print("object"+BASE_URL + i.image.toString());
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 130.0,
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(left: 10.0, right: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                            image:
+                            DecorationImage(
+                                image: NetworkImage(
+                                    BASE_URL + i.image.toString()),
+                                fit: BoxFit.fill)
+                        ),
+                        child:
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 40.0),
+                            child: Text(i.title.toString(),style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.white
+                            )),
                           ),
-                          child:
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("Perfect Image",style: TextStyle(
-                                fontSize: 34
-                              )),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                )
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ):Container(
+                height: 130.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                ),
+              ))
+
           ),
             SizedBox(
               height: 8,

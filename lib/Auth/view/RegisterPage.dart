@@ -8,7 +8,8 @@ import 'package:librarymanagement/ConstantVariable/textStryle.dart';
 import 'package:librarymanagement/Dashboard/dashboard.dart';
 
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget
+{
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +17,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage>
-{LoginController controller=Get.find();
+{
+  LoginController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -55,8 +57,9 @@ class _RegisterPageState extends State<RegisterPage>
                             [
                               SizedBox(height: 25,),
                               EditTextWidget(
-                                image: "assets/images/email.svg",
-                                hint: 'Name',
+                                controller: controller.etName,
+                                image: "assets/images/user.svg",
+                                hint: 'Insert Name',
                                 validator: (value)
                                 { if(value.toString().isEmpty)
                                   {
@@ -68,43 +71,41 @@ class _RegisterPageState extends State<RegisterPage>
                               ),
                               SizedBox(height: 10,),
                               EditTextWidget(
-                                hint: 'Mobile Number',
-                                image: "assets/images/email.svg",
+                                controller: controller.etMobile,
+                                isRead: true,
+                                length:10,
+                                hint: 'Insert Mobile Number',
+                                image: "assets/images/call.svg",
+
                                 validator: (value)
                                 { if(value.toString().isEmpty)
                                   {
-                                    return "Please Enter Name";
+                                    return "Please Enter Mobile Number";
                                   }
                                   return null;
                                 },
+
 
                               ),
                               SizedBox(height: 10,),
                               EditTextWidget(
+                                controller: controller.etEmail,
                                 image: "assets/images/email.svg",
-                                hint: 'E-mail',
+                                hint: 'Insert E-mail',
                                 validator: (value)
-                                { if(value.toString().isEmpty)
+                                {
+                                  if(value.toString().isEmpty)
                                   {
-                                    return "Please Enter Name";
+                                    return "Please Enter E-mail";
+                                  }
+                                  if(!GetUtils.isEmail(value))
+                                  {
+                                    return "Please Enter Valid Email";
                                   }
                                   return null;
                                 },
                               ),
                               SizedBox(height: 10,),
-                              EditTextWidget(
-                                image: "assets/images/email.svg",
-                                hint: 'Address',
-                                validator: (value)
-                                { if(value.toString().isEmpty)
-                                  {
-                                    return "Please Enter Name";
-                                  }
-                                  return null;
-                                },
-                              ),
-
-
                             ],
                           ),
                         )),
@@ -117,20 +118,10 @@ class _RegisterPageState extends State<RegisterPage>
                   width: Get.width,
                   child: RawMaterialButton(onPressed: ()
                   {
-                    Future.delayed(
-                      Duration(seconds: 2),
-                      () {
-                        Future.delayed(const Duration(seconds: 1), () {
-                          // Navigator.pop(context);
-                          Get.to(dashboard());
-                        });
-                      },
-                    );
-                  //
-                    /*if(_controller.formKey.currentState!.validate())
+                    if(controller.formKey.currentState!.validate())
                     {
-                    //  _controller.signUpNetworkApi(deviceId);
-                    }*/
+                      controller.signUpNetworkApi("");
+                    }
                   },
                     child: Icon(Icons.arrow_forward,color: Colors.white,size: 30,),
                     fillColor: Colors.black,

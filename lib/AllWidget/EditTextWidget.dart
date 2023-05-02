@@ -19,7 +19,8 @@ class EditTextWidget extends StatelessWidget {
       this.validator,
       this.type = TextInputType.text,
       this.length = null,
-      this.isRead = false})
+      this.isRead = false}
+      )
       : super(key: key);
 
   @override
@@ -37,6 +38,9 @@ class EditTextWidget extends StatelessWidget {
               minWidth: 45,
             ),
             border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
             hintText: hint,
             isDense: true,
             counter: Offstage(),
@@ -70,7 +74,8 @@ class EditTextWidgetAddMember extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return
+      TextFormField(
         controller: controller,
         readOnly: isRead!,
         decoration: InputDecoration(
@@ -83,6 +88,7 @@ class EditTextWidgetAddMember extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
             ),
+
             hintText: hint,
             hintStyle: TextStyle(color: Colors.black54),
             isDense: true,

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:librarymanagement/AllWidget/CircularButton.dart';
 import 'package:librarymanagement/Auth/controller/LoginController.dart';
-import 'package:librarymanagement/Auth/view/LoginPage.dart';
 import 'package:librarymanagement/Auth/view/RegisterPage.dart';
 import 'package:librarymanagement/Auth/view/VerifyOTP.dart';
 import 'package:librarymanagement/ConstantVariable/textStryle.dart';
@@ -42,7 +41,7 @@ class _Login_uiState extends State<LoginDashBoard>
                     height: 100,
                     width: 100,
                     child: Image.asset("assets/images/logo.png"),
-                  ),
+                     ),
                      SizedBox(height: 40,),
                      Text(
                     'Create an Account',
@@ -75,10 +74,11 @@ class _Login_uiState extends State<LoginDashBoard>
 
                           ),
                           style: headingText)),
-                      SizedBox(width: 8,),
+                       SizedBox(width: 8,),
                       Expanded(flex:5,child: Form(
                         key: _keyForm,
-                        child: TextFormField(
+                        child: TextFormField
+                           (
                             controller: controller.etMobile,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -94,7 +94,8 @@ class _Login_uiState extends State<LoginDashBoard>
                               contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
 
                             ),
-                            validator: (value){
+                            validator: (value)
+                            {
                               if(value.toString().isEmpty)
                               {
                                 return "Please enter mobile No.";
@@ -105,7 +106,6 @@ class _Login_uiState extends State<LoginDashBoard>
                               }
                             },
                             maxLength: 10,
-
                             style: headingText.copyWith(color: Colors.amberAccent,letterSpacing: 0.50,)),
                       )),
                     ],
@@ -120,8 +120,8 @@ class _Login_uiState extends State<LoginDashBoard>
                       {
                         if(_keyForm.currentState!.validate())
                         {
-                          Get.to(OtypVerifyPage());
-                          //_controller.loginNetworkApi(deviceId);
+
+                          controller.loginNetworkApi("");
                         }
 
                       },)),

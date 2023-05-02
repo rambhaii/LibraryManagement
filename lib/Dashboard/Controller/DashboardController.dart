@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../AppConstant/APIConstant.dart';
+import '../../UtilsMethod/BaseController.dart';
+import '../../UtilsMethod/base_client.dart';
+import '../Model/BannerData.dart';
 
 class DashBoardController extends GetxController
 {
@@ -35,6 +42,19 @@ class DashBoardController extends GetxController
         },
 
       ].obs;
+  var bannerData=BannerData().obs;
+  getBannerNetworkApi() async
+  {
+    var response = await BaseClient()
+        .get(getBnnerApi)
+        .catchError(BaseController().handleError);
+
+    if (jsonDecode(response)["status"] == 1) {
+      bannerData.value = bannerDataFromJson(response);
+      return;
+    }
+    BaseController().errorSnack(jsonDecode(response)["message"]);
+  }
 
 
 

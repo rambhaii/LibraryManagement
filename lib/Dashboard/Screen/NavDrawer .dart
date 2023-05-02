@@ -8,6 +8,7 @@ import 'package:librarymanagement/ConstantVariable/textStryle.dart';
 import 'package:librarymanagement/Dashboard/Controller/DashboardController.dart';
 import 'package:librarymanagement/Dashboard/Model/datamodel.dart';
 import 'package:librarymanagement/Dashboard/Screen/Profile.dart';
+import 'package:librarymanagement/NavBar/AddLibrary/AddLibrary.dart';
 import 'package:librarymanagement/NavBar/SeatUi/AddAndDelete.dart';
 import 'package:librarymanagement/NavBar/Ui/CollectionGraph.dart';
 import 'package:librarymanagement/NavBar/Ui/EnrollmentFee.dart';
@@ -132,6 +133,18 @@ class _NavDrawerState extends State<NavDrawer> {
               style: headingText,
             ),
             alignment: AlignmentDirectional.center,
+          ),
+          Divider(
+            height: 5,
+            color: Colors.red.withOpacity(0.6),
+          ),
+          ListTile(
+            leading: Icon(Icons.input),
+            trailing: Icon(Icons.arrow_forward_ios,size: 18,),
+            title: Text('Lli'),
+            onTap: () => {
+            Get.to(AddLibrary())
+            },
           ),
 
           Divider(
